@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Information</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding-top: 20px;
+      --background-color: #f8f9fa;
+      --text-color: #212529;
+    }
+    body.dark-mode {
+      --background-color: #343a40;
+      --text-color: #adb5bd;
+    }
+    body {
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+    .container {
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+    .table th, .table td {
+      border-top: none;
+    }
+    .alert {
+      margin-bottom: 20px;
+    }
+    .theme-toggle-btn {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 16px;
+      cursor: pointer;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    .theme-toggle-btn:hover {
+      background-color: #0056b3;
+    }
+    /* Specific styling for table in light mode */
+    .table-light {
+      background-color: #fff;
+      color: #212529;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="container">
+  
+  <h2>Student Information</h2>
+  <% if (items.length === 0) { %>
+    <div class="alert alert-danger" role="alert">
+      No Data Found
+    </div>
+  <% } else { %>
+    <table class="table table-striped table-light">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>CGPA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% items.forEach(item => { %>
+          <tr>
+            <td> <%= item.ID %></td>
+            <td> <%= item.Name %></td>
+            <td><%= item.Age %></td>
+            <td><%= item.CGPA %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<button class="theme-toggle-btn" onclick="toggleTheme()">Toggle Dark/Light Mode</button>
+
+
+
+
+
+<script>
+  // JavaScript to toggle between dark and light mode
+  function toggleTheme() {
+    const body = document.body;
+    const container = document.getElementById('container');
+    if (body.classList.contains('dark-mode')) {
+      body.classList.remove('dark-mode');
+      container.classList.remove('container-dark');
+    } else {
+      body.classList.add('dark-mode');
+      container.classList.add('container-dark');
+    }
+  }
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
