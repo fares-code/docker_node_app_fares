@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  node-app:
+    build: .
+    command: [ "npm","start" ] 
+    restart: unless-stopped
+
+    depends_on:
+      - mysql_db
+    ports:
+      - "8000:8000"
+    environment:
+        MYSQL_HOST: mysql_db
+        MYSQL_PORT: 3306
+        MYSQL_USER: root
+        MYSQL_PASSWORD: fares6872
+        MYSQL_DATABASE: ourteamdata  
+    
+    networks:
+      - cloudappnetwork
+    
+    volumes:
+      - C:\Users\Data\Desktop\database:/app  # Mounting the directory into the container
+     
+  mysql_db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    expose:
+      - 3306 
+    environment:
+      MYSQL_ROOT_PASSWORD: fares6872
+      MYSQL_PASSWORD: fares6872
+      MYSQL_DATABASE: ourteamdata
+
+     # Adjusted the port mapping to avoid conflicts
+    networks:
+     - cloudappnetwork
+
+    volumes:
+         - "./sql/ourteamdata.sql:/docker-entrypoint-initdb.d/ourteamdata.sql"
+         - mysql-db-data:/var/lib/mysql
+
+
+networks:
+  cloudappnetwork:
+
+volumes:
+  mysql-db-data:
